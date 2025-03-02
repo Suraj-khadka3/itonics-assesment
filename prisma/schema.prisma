@@ -7,10 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  pwd       String
-  name      String?
-  createdAt DateTime @default(now())
+model Thread {
+  uuid              String   @id @default(uuid())
+  url               String
+  siteFull          String
+  site              String
+  siteSection       String?
+  siteCategories    String[]
+  sectionTitle      String?
+  title             String
+  titleFull         String
+  published         DateTime
+  repliesCount      Int
+  participantsCount Int
+  siteType          String
+  country           String
+  mainImage         String
+  performanceScore  Int
+  domainRank        Int
+  domainRankUpdated DateTime
+
+  social Social?
+}
+
+model Social {
+  threadUuid String   @id
+  updated    DateTime
+
+  facebook Facebook?
+  vk       VK?
+  thread   Thread    @relation(fields: [threadUuid], references: [uuid])
+}
+
+model Facebook {
+  threadUuid String @id
+  likes      Int
+  comments   Int
+  shares     Int
+
+  social Social @relation(fields: [threadUuid], references: [threadUuid])
+}
+
+model VK {
+  threadUuid String @id
+  shares     Int
+
+  social Social @relation(fields: [threadUuid], references: [threadUuid])
 }

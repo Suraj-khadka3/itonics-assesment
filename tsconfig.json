@@ -1,27 +1,21 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"]
+    },
+    "incremental": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
     "target": "ES6",
-    "module": "CommonJS",
-    "lib": ["ES2022", "DOM"],
-    "outDir": "./dist",
-    "strict": true,
+    "module": "commonjs",
+    "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "removeComments": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true,
-    "incremental": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "paths": {
-      "src/*": ["src/*"]
-    }
+    "outDir": "./dist"
   },
-  "include": ["src/**/*", "app.ts"]
+  "include": ["src/**/*", "app.ts", "prisma/**/*"]
 }
