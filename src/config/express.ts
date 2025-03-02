@@ -6,7 +6,7 @@ import compress from "compression";
 import bodyParser from "body-parser";
 
 import { corsOptions } from "src/utils/corsOptions";
-import router from "src/routes/v1/index";
+import router from "src/routes/v1/routes";
 
 const app = express();
 
