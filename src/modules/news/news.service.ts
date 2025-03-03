@@ -7,27 +7,19 @@ const API_KEY = process.env.WEBZ_API_KEY;
 
 export const getNews = async (req: Request, res: Response) => {
   const query = req.query.q || "Bitcoin";
-  const limit = +req.query.limit || 10;
-  const offset = req.query.offset || 0;
-
-  if (limit > 10) {
-    throw new Error("Limit cannot be greater than 10");
-  }
 
   try {
-    logger.info(`getNews query: ${JSON.stringify(query)} limit: ${limit} offset: ${offset}`);
+    logger.info(`getNews query: ${JSON.stringify(query)}`);
 
     const response = await axios.get(API_URL, {
       params: {
         token: API_KEY,
         q: JSON.stringify(query),
-        limit,
-        offset,
       },
       timeout: 10000, // 10 seconds
     });
 
-    console.log(response.config);
+    console.log(`full Url: ${axios.getUri(response.config)}`);
 
     logger.info(`Successfully fetched ${response.data.news?.length || 0} news articles`);
 
@@ -36,8 +28,6 @@ export const getNews = async (req: Request, res: Response) => {
       data: response.data,
       meta: {
         query,
-        limit,
-        offset,
       },
     });
   } catch (error) {
