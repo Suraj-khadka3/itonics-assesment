@@ -8,49 +8,51 @@ datasource db {
 }
 
 model Thread {
-  uuid              String   @id @default(uuid())
-  url               String
-  siteFull          String
-  site              String
-  siteSection       String?
+  id                String   @id @default(uuid())
+  url               String   @unique
+  siteFull          String?
+  site              String?
   siteCategories    String[]
-  sectionTitle      String?
   title             String
   titleFull         String
   published         DateTime
   repliesCount      Int
   participantsCount Int
   siteType          String
-  country           String
-  mainImage         String
+  country           String?
+  mainImage         String?
   performanceScore  Int
   domainRank        Int
   domainRankUpdated DateTime
+  addedAt           DateTime @default(now())
 
   social Social?
+
+  socialId String? @unique
 }
 
 model Social {
-  threadUuid String   @id
-  updated    DateTime
-
+  id       String    @id @default(uuid())
+  updated  DateTime
   facebook Facebook?
   vk       VK?
-  thread   Thread    @relation(fields: [threadUuid], references: [uuid])
+
+  threadId String @unique
+  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
 }
 
 model Facebook {
-  threadUuid String @id
-  likes      Int
-  comments   Int
-  shares     Int
-
-  social Social @relation(fields: [threadUuid], references: [threadUuid])
+  id       String @id @default(uuid())
+  likes    Int
+  comments Int
+  shares   Int
+  social   Social @relation(fields: [socialId], references: [id])
+  socialId String @unique
 }
 
 model VK {
-  threadUuid String @id
-  shares     Int
-
-  social Social @relation(fields: [threadUuid], references: [threadUuid])
+  id       String @id @default(uuid())
+  shares   Int
+  social   Social @relation(fields: [socialId], references: [id])
+  socialId String @unique
 }
