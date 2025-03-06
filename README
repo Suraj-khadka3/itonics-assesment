@@ -10,7 +10,14 @@ cp .env.sample .env
 
 Change or add the DATABASE_URL in your .env file according to your database URL.
 
+## Start Docket
+
+docker-compose up
+
 ## Prisma commands
 
 npx prisma generate && npx prisma migrate dev
 
+## Run the server
+
+pnpm i && pnpm dev
